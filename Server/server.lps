@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="server.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="12"/>
+        <CursorPos Y="27"/>
+        <UsageCount Value="29"/>
+      </Unit>
+      <Unit>
+        <Filename Value="userver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FServer"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="16"/>
+        <CursorPos X="11" Y="58"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uSQLite.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="57"/>
+        <CursorPos X="49" Y="75"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uhttp_thread.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="7" Y="15"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="http_thread.pas"/>
+        <UnitName Value="http_service"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="18"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="http_service.pas"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="3" Y="105"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="86" Column="13" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="72" Column="42" TopLine="70"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="46" Column="16" TopLine="37"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="44" Column="37" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="43" Column="59" TopLine="27"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="9" Column="24" TopLine="4"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="61" Column="35" TopLine="57"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="63" Column="25" TopLine="47"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="31" Column="23" TopLine="19"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="84" Column="18" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="47" Column="27" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="19" Column="44" TopLine="3"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="18" Column="44" TopLine="3"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="19" Column="44" TopLine="3"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="40" Column="42" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="89" Column="83" TopLine="78"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="23" Column="39" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="88" Column="25" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="40" Column="46" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="30" Column="2" TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="31" Column="37" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="110" Column="140" TopLine="92"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="74" Column="28" TopLine="68"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="110" Column="161" TopLine="102"/>
+      </Position>
+      <Position>
+        <Filename Value="uSQLite.pas"/>
+        <Caret Line="32" Column="16" TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="163" Column="42" TopLine="147"/>
+      </Position>
+      <Position>
+        <Filename Value="userver.pas"/>
+        <Caret Line="43" Column="7" TopLine="27"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="137" Column="5" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="71" Column="6" TopLine="84"/>
+      </Position>
+      <Position>
+        <Filename Value="http_service.pas"/>
+        <Caret Line="25" Column="30" TopLine="10"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

@@ -1,0 +1,53 @@
+object FServer: TFServer
+  Left = 464
+  Height = 240
+  Top = 241
+  Width = 316
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Server App'
+  ClientHeight = 240
+  ClientWidth = 316
+  Position = poScreenCenter
+  LCLVersion = '4.0.0.4'
+  object MemoInfo: TMemo
+    Left = 0
+    Height = 182
+    Top = 58
+    Width = 316
+    Align = alClient
+    TabOrder = 0
+    OnKeyPress = MemoInfoKeyPress
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 58
+    Top = 0
+    Width = 316
+    Align = alTop
+    BevelOuter = bvLowered
+    ClientHeight = 58
+    ClientWidth = 316
+    TabOrder = 1
+    object BStart: TButton
+      Left = 224
+      Height = 25
+      Top = 22
+      Width = 83
+      Caption = 'Start HTTP'
+      TabOrder = 0
+      OnClick = BStartClick
+    end
+    object EPort: TLabeledEdit
+      Left = 8
+      Height = 23
+      Top = 24
+      Width = 40
+      EditLabel.Height = 15
+      EditLabel.Width = 40
+      EditLabel.Caption = 'Port'
+      NumbersOnly = True
+      TabOrder = 1
+      Text = '8181'
+    end
+  end
+end

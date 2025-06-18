@@ -1,0 +1,52 @@
+object FInsertUpdate: TFInsertUpdate
+  Left = 349
+  Height = 212
+  Top = 229
+  Width = 242
+  BorderIcons = [biSystemMenu]
+  Caption = 'FInsertUpdate'
+  ClientHeight = 212
+  ClientWidth = 242
+  Position = poScreenCenter
+  LCLVersion = '4.0.0.4'
+  object ENama: TLabeledEdit
+    Left = 16
+    Height = 23
+    Top = 32
+    Width = 144
+    EditLabel.Height = 15
+    EditLabel.Width = 144
+    EditLabel.Caption = 'Nama'
+    TabOrder = 0
+  end
+  object ENoHP: TLabeledEdit
+    Left = 16
+    Height = 23
+    Top = 80
+    Width = 112
+    EditLabel.Height = 15
+    EditLabel.Width = 112
+    EditLabel.Caption = 'Handphone'
+    NumbersOnly = True
+    TabOrder = 1
+  end
+  object EAlamat: TLabeledEdit
+    Left = 16
+    Height = 23
+    Top = 128
+    Width = 208
+    EditLabel.Height = 15
+    EditLabel.Width = 208
+    EditLabel.Caption = 'Alamat'
+    TabOrder = 2
+  end
+  object BSimpan: TButton
+    Left = 16
+    Height = 25
+    Top = 168
+    Width = 120
+    Caption = 'BSimpan'
+    TabOrder = 3
+    OnClick = BSimpanClick
+  end
+end
