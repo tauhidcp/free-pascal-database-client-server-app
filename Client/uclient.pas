@@ -19,6 +19,7 @@ type
     BDeleteData: TButton;
     BBrowse: TButton;
     BUpload: TButton;
+    BDownload: TButton;
     EFile: TEdit;
     GroupBox1: TGroupBox;
     EIPAddress: TLabeledEdit;
@@ -27,18 +28,22 @@ type
     Panel1: TPanel;
     GridContact: TStringGrid;
     procedure BBrowseClick(Sender: TObject);
+    procedure BDownloadClick(Sender: TObject);
     procedure BGetDataClick(Sender: TObject);
     procedure BDeleteDataClick(Sender: TObject);
     procedure BInsertDataClick(Sender: TObject);
     procedure BUpdateDataClick(Sender: TObject);
     procedure BUploadClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure GridContactSelectCell(Sender: TObject; aCol, aRow: Integer;
       var CanSelect: Boolean);
     procedure UploadFile(AFileName:String);
+    procedure DownloadFile(URLFile:String;NamaHasil:String);
   private
 
   public
   id, nama, nohp, alamat : String;
+  Upload : Boolean;
 
   end;
 
@@ -86,6 +91,20 @@ begin
        if not (OpenFile.FileName='') then
            EFile.Text:=OpenFile.FileName;
       end;
+end;
+
+procedure TFClient.BDownloadClick(Sender: TObject);
+var
+  namahasil,urlfile:String;
+begin
+  if (Upload=True) then
+      begin
+       namahasil   := ExtractFilePath(Application.ExeName)+'/'+StringReplace(ExtractFileName(OpenFile.FileName),' ','-',[rfReplaceAll, rfIgnoreCase]);
+       urlfile     := 'http://'+EIPAddress.Text+':'+EPort.Text+'/uploads/'+StringReplace(ExtractFileName(OpenFile.FileName),' ','-',[rfReplaceAll, rfIgnoreCase]);
+       DownloadFile(urlfile,namahasil);
+       MessageDlg('Download File Success!', mtInformation, [mbOK],0);
+      end else
+      MessageDlg('Upload File First Before Download!', mtWarning, [mbOK],0);
 end;
 
 procedure TFClient.BDeleteDataClick(Sender: TObject);
@@ -150,6 +169,11 @@ begin
       MessageDlg('Select File First Before Upload!', mtWarning, [mbOK],0);
 end;
 
+procedure TFClient.FormCreate(Sender: TObject);
+begin
+  Upload:=False;
+end;
+
 procedure TFClient.GridContactSelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -206,6 +230,7 @@ begin
          begin
             MessageDlg('Upload File Success!', mtInformation, [mbOK],0);
             BGetData.Click;
+            Upload:=True;
          end;
 
     finally
@@ -214,6 +239,27 @@ begin
       Request.Free;
       Respon.Free;
    end;
+end;
+
+procedure TFClient.DownloadFile(URLFile:String;NamaHasil:String);
+var
+  HttpClient: TFPHttpClient;
+  Stream: TFileStream;
+  URL, OutputFile: string;
+begin
+  URL := URLFile;
+  OutputFile := NamaHasil;
+  try
+    HttpClient := TFPHttpClient.Create(nil);
+    Stream := TFileStream.Create(OutputFile, fmCreate);
+    try
+      HttpClient.Get(URL, Stream);
+    finally
+      Stream.Free;
+    end;
+  except
+  end;
+  HttpClient.Free;
 end;
 
 end.

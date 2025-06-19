@@ -165,7 +165,7 @@ begin
         begin
 
           UploadField := TUploadedFile(ARequest.Files.Items[i]);
-          SavePath := 'uploads' + DirectorySeparator + ExtractFileName(UploadField.FileName);
+          SavePath := 'uploads' + DirectorySeparator + ExtractFileName(StringReplace(UploadField.FileName,' ','-',[rfReplaceAll, rfIgnoreCase]));
           ForceDirectories(ExtractFilePath(SavePath));
 
           if Assigned(UploadField.Stream) then
@@ -192,10 +192,42 @@ begin
 end;
 
 procedure Home(aRequest : TRequest; aResponse : TResponse);
+var
+  FilePath: String;
+  FileStream: TFileStream;
 begin
-  aResponse.Content := 'Welcome, this is default route HTTP Server App :)';
-  aResponse.ContentType := 'text/plain';
-  aResponse.SendContent;
+   if ARequest.URI.StartsWith('/uploads/') then  // check if client access the uploads directory
+  begin
+    FilePath := 'uploads' + DirectorySeparator + ExtractFileName(ARequest.URI);
+    if FileExists(FilePath) then
+    begin
+      FileStream := TFileStream.Create(FilePath, fmOpenRead or fmShareDenyNone);
+      try
+        AResponse.ContentStream := FileStream;
+        AResponse.ContentType := 'application/octet-stream';
+        AResponse.SendContent;
+      except
+        on E: Exception do
+        begin
+          FileStream.Free;
+          AResponse.Code := 500;
+          AResponse.Content := 'Error serving file: ' + E.Message;
+          aResponse.SendContent;
+        end;
+      end;
+      FServer.MemoInfo.Lines.Add('[Client] Download File...');
+    end else
+    begin
+      aResponse.Content := 'File Tidak ada!';
+      aResponse.ContentType := 'text/plain';
+      aResponse.SendContent;
+    end;
+  end else
+  begin
+    aResponse.Content := 'Welcome, this is default route HTTP Server App :)';
+    aResponse.ContentType := 'text/plain';
+    aResponse.SendContent;
+  end;
 end;
 
 procedure THTTP_Service.Execute;
