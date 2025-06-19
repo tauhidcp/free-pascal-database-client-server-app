@@ -53,8 +53,11 @@ begin
             Data := GetJSON('{"nama" : "'+ENama.Text+'", "nohp" : "'+ENoHP.Text+'", "alamat" : "'+EAlamat.Text+'"}');
             http.FormPost('http://'+FClient.EIPAddress.Text+':'+FClient.EPort.Text+'/addcontact', Data.AsJSON, Response);
 
-            if (Response.DataString='SUCCESS!') then
-                  FClient.BGetDataClick(Sender);
+            if (Trim(Response.DataString)='SUCCESS!') then
+               begin
+                  MessageDlg('Save Contact Success!', mtInformation, [mbOK],0);
+                  FClient.BGetData.Click;
+               end;
           finally
             Response.Free;
             http.Free;
@@ -69,8 +72,11 @@ begin
             Data := GetJSON('{"id" : "'+FClient.id+'", "nama" : "'+ENama.Text+'", "nohp" : "'+ENoHP.Text+'", "alamat" : "'+EAlamat.Text+'"}');
             http.FormPost('http://'+FClient.EIPAddress.Text+':'+FClient.EPort.Text+'/updatecontact', Data.AsJSON, Response);
 
-            if (Response.DataString='SUCCESS!') then
-                  FClient.BGetDataClick(Sender);
+            if (Trim(Response.DataString)='SUCCESS!') then
+               begin
+                  MessageDlg('Update Contact Success!', mtInformation, [mbOK],0);
+                  FClient.BGetData.Click;
+               end;
           finally
             Response.Free;
             http.Free;

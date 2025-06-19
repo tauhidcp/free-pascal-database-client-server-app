@@ -17,17 +17,24 @@ type
     BInsertData: TButton;
     BUpdateData: TButton;
     BDeleteData: TButton;
+    BBrowse: TButton;
+    BUpload: TButton;
+    EFile: TEdit;
     GroupBox1: TGroupBox;
     EIPAddress: TLabeledEdit;
     EPort: TLabeledEdit;
+    OpenFile: TOpenDialog;
     Panel1: TPanel;
     GridContact: TStringGrid;
+    procedure BBrowseClick(Sender: TObject);
     procedure BGetDataClick(Sender: TObject);
     procedure BDeleteDataClick(Sender: TObject);
     procedure BInsertDataClick(Sender: TObject);
     procedure BUpdateDataClick(Sender: TObject);
+    procedure BUploadClick(Sender: TObject);
     procedure GridContactSelectCell(Sender: TObject; aCol, aRow: Integer;
       var CanSelect: Boolean);
+    procedure UploadFile(AFileName:String);
   private
 
   public
@@ -72,6 +79,15 @@ begin
   end;
 end;
 
+procedure TFClient.BBrowseClick(Sender: TObject);
+begin
+  if (OpenFile.Execute) then
+      begin
+       if not (OpenFile.FileName='') then
+           EFile.Text:=OpenFile.FileName;
+      end;
+end;
+
 procedure TFClient.BDeleteDataClick(Sender: TObject);
 var
   hapus : AnsiString;
@@ -82,8 +98,11 @@ begin
          begin
           try
             hapus := TFPHTTPClient.SimpleGet('http://'+EIPAddress.Text+':'+EPort.Text+'/deletecontact?id='+id);
-              if (hapus='SUCCESS!') then
-                  BGetDataClick(Sender);
+            if (Trim(hapus)='SUCCESS!') then
+               begin
+                  MessageDlg('Hapus Contact Success!', mtInformation, [mbOK],0);
+                  BGetData.Click;
+               end;
           finally
           end;
          end;
@@ -121,6 +140,16 @@ if not (id='') and not (nama='') then
       MessageDlg('Select Data First Before Update!', mtWarning, [mbOK],0);
 end;
 
+procedure TFClient.BUploadClick(Sender: TObject);
+begin
+  if not (EFile.Text='') then
+      begin
+           if FileExists(EFile.Text) then
+               UploadFile(EFile.Text);
+      end else
+      MessageDlg('Select File First Before Upload!', mtWarning, [mbOK],0);
+end;
+
 procedure TFClient.GridContactSelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -128,6 +157,63 @@ id   := GridContact.Cells[1,aRow];
 nama := GridContact.Cells[2,aRow];
 nohp := GridContact.Cells[3,aRow];
 alamat := GridContact.Cells[4,aRow];
+end;
+
+procedure TFClient.UploadFile(AFileName: String);
+var
+  Client: TFPHTTPClient;
+  Boundary, CRLF: string;
+  Request: TMemoryStream;
+  FileStream: TFileStream;
+  FileName: string;
+  Header: string;
+  EndBoundary: string;
+  Respon : TStringStream;
+begin
+
+    try
+
+      Randomize;
+      Boundary := '----Boundary' + IntToStr(Random(1000000));
+      CRLF := #13#10;
+      FileName := ExtractFileName(AFileName);
+      Respon := TStringStream.Create('');
+      Request := TMemoryStream.Create;
+      FileStream := TFileStream.Create(AFileName, fmOpenRead or fmShareDenyWrite);
+      Client := TFPHTTPClient.Create(nil);
+
+      Header := '--' + Boundary + CRLF +
+                'Content-Disposition: form-data; name="document"; filename="' + FileName + '"' + CRLF +
+                'Content-Type: application/octet-stream' + CRLF + CRLF;
+
+      Request.Write(Pointer(Header)^, Length(Header));
+
+      // File content
+      Request.CopyFrom(FileStream, FileStream.Size);
+      Request.Write(Pointer(CRLF)^, Length(CRLF));
+
+      // Final boundary
+      EndBoundary := '--' + Boundary + '--' + CRLF;
+      Request.Write(Pointer(EndBoundary)^, Length(EndBoundary));
+
+      // Send request
+      Client.AddHeader('Content-Type', 'multipart/form-data; boundary=' + Boundary);
+      Request.Position := 0;
+      Client.RequestBody := Request;
+      Client.Post('http://'+EIPAddress.Text+':'+EPort.Text+'/uploadfile',Respon);
+
+      if (Trim(Respon.DataString)='SUCCESS!') then
+         begin
+            MessageDlg('Upload File Success!', mtInformation, [mbOK],0);
+            BGetData.Click;
+         end;
+
+    finally
+      Client.Free;
+      FileStream.Free;
+      Request.Free;
+      Respon.Free;
+   end;
 end;
 
 end.

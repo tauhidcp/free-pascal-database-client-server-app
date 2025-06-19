@@ -149,6 +149,48 @@ begin
   end;
 end;
 
+procedure uploadFile(aRequest : TRequest; aResponse : TResponse);
+var
+  UploadField: TUploadedFile;
+  i: integer;
+  SavePath:String;
+begin
+  if ARequest.Method = 'POST' then
+  begin
+
+      if aRequest.Files.Count > 0 then
+      begin
+
+        for i := 0 to aRequest.Files.Count - 1 do
+        begin
+
+          UploadField := TUploadedFile(ARequest.Files.Items[i]);
+          SavePath := 'uploads' + DirectorySeparator + ExtractFileName(UploadField.FileName);
+          ForceDirectories(ExtractFilePath(SavePath));
+
+          if Assigned(UploadField.Stream) then
+            begin
+              UploadField.Stream.Position := 0;
+              with TFileStream.Create(SavePath, fmCreate) do
+              try
+                CopyFrom(UploadField.Stream, UploadField.Stream.Size);
+              finally
+                Free;
+              end;
+            end;
+
+          end;
+
+          aResponse.Content := 'SUCCESS!';
+        end else
+        aResponse.Content := 'FAILED!';
+
+      aResponse.ContentType := 'text/plain';
+      aResponse.SendContent;
+      FServer.MemoInfo.Lines.Add('[Client] Upload File...');
+  end;
+end;
+
 procedure Home(aRequest : TRequest; aResponse : TResponse);
 begin
   aResponse.Content := 'Welcome, this is default route HTTP Server App :)';
@@ -172,6 +214,7 @@ begin
        HTTPRouter.RegisterRoute('/addcontact', @addContact);
        HTTPRouter.RegisterRoute('/updatecontact', @updateContact);
        HTTPRouter.RegisterRoute('/deletecontact', @deleteContact);
+       HTTPRouter.RegisterRoute('/uploadfile', @uploadFile);
        HTTPRouter.RegisterRoute('/home', @Home, true); // default route
   end;
   httpapp.Threaded := True;

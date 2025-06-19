@@ -6,6 +6,6 @@ Simple Sample GUI Based Lazarus Free Pascal Database Client Server Application
 - FPC 3.2.2 + Lazarus 4.0 
 - HTTP Request (Multithread)
 - SQLite Database
-- Server App as a Service (Start, Stop and Logging)  
-- Client App (Retrieve, Insert, Update and Delete) 
+- Server App as a Service (Start, Stop and Logging), implementasi HTTP Server  
+- Client App (Retrieve, Insert, Update, Delete and Upload File), implementasi HTTP Client 
 
