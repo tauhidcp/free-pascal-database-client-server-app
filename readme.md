@@ -7,5 +7,6 @@ Simple Sample GUI Based Lazarus Free Pascal Database Client Server Application
 - HTTP Request (Multithread)
 - SQLite Database
 - Server App as a Service (Start, Stop and Logging), implementasi HTTP Server  
-- Client App (Retrieve, Insert, Update, Delete, Upload and Download File), implementasi HTTP Client 
+- Client App (Retrieve, Insert, Update, Delete, Upload and Download File), implementasi HTTP Client
+- **Nonaktifkan firewall agar koneksi dari Android tidak diblok oleh Windows**
 
